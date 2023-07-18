@@ -3,6 +3,10 @@ import math
 import torch
 import torch.utils.model_zoo as model_zoo
 import torch.nn.functional as F
+<<<<<<< HEAD
+=======
+
+>>>>>>> NATv1
 __all__ = ['ResNet', 'resnet18', 'resnet50', ]
 
 
@@ -270,9 +274,15 @@ normalizer = lambda x: x / (torch.norm(x, dim=-1, keepdim=True) + 1e-10)
 
 class ResNet(AbstractResNet):
 
+<<<<<<< HEAD
     def __init__(self, block, layers, num_classes=2, max_iter=-1, normalized=True, use_bias=False, simsiam=False):
         super(ResNet, self).__init__(block, layers, num_classes)
         feat_dim = 512
+=======
+    def __init__(self, block, layers, num_classes=2, embed_dim=512, normalized=True, use_bias=False, simsiam=False):
+        super(ResNet, self).__init__(block, layers, num_classes)
+        feat_dim = embed_dim
+>>>>>>> NATv1
 
         if normalized:
             self.fc0 = NormedLogisticRegression(feat_dim * block.expansion, 1, use_bias=use_bias)
@@ -348,6 +358,7 @@ class ResNet(AbstractResNet):
 
         return ((beta0 * beta1).sum() + (beta2 * beta1).sum() + (beta0 * beta2).sum()) / 3
 
+<<<<<<< HEAD
     def forward(self, x, fc_params=None, out_type='ce_sep', scale=None):
         feat = self.features(x)
         # b, c, w, h = feat.shape
@@ -371,6 +382,34 @@ class ResNet(AbstractResNet):
         if out_type == 'all':
             return feat, feat, (self.fc0(feat, scale) + self.fc1(feat, scale)+ self.fc2(feat, scale)) / 3
         raise RuntimeError("None supported out_type")
+=======
+    def forward(self, x):
+        feat = self.features(x)
+        # b, c, w, h = feat.shape
+        # feat = torch.matmul(feat.view(b, c, w*h), torch.transpose(feat.view(b, c, w*h), 2, 1)).view(b, c * c) / w*h
+        return feat
+        # feat = self.avgpool(feat)
+        # #print(feat.shape)
+        # feat = feat.view(feat.size(0), -1)
+        # #print(feat.shape)
+        # # feat = self.proj(feat)
+        # if scale is None:
+        #     scale = torch.exp(self.bn_scale(self.fc_scale(feat)))
+        # else:
+        #     scale = torch.ones_like(torch.exp(self.bn_scale(self.fc_scale(feat)))) * scale
+
+
+        # if out_type == 'ce_sep':
+        #     return [self.fc0(feat, scale), self.fc1(feat, scale), self.fc2(feat, scale)]
+        # if out_type == 'ce':
+        #     return feat, self.fc0(feat, scale)
+        # if out_type == 'feat':
+        #     return feat, scale
+        # if out_type == 'all':
+        #     return feat, feat, (self.fc0(feat, scale) + self.fc1(feat, scale)+ self.fc2(feat, scale)) / 3
+        # raise RuntimeError("None supported out_type")
+
+>>>>>>> NATv1
 
 
 def resnet18(pretrained=False, **kwargs):

@@ -14,7 +14,12 @@ from utils.rotate_crop import crop_rotated_rectangle, inside_rect, vis_rotcrop
 import torchvision.transforms.functional as tf
 import matplotlib.pyplot as plt
 
+<<<<<<< HEAD
 from ylib.scipy_misc import imread, imsave
+=======
+#from ylib.scipy_misc import imread, imsave
+
+>>>>>>> NATv1
 from .meta import DEVICE_INFOS
 
 torch.manual_seed(0)
@@ -170,7 +175,11 @@ class FaceDataset(Dataset):
                 break
 
         info = np.load(info_path, allow_pickle=True).item()
+<<<<<<< HEAD
         image = imread(image_path)
+=======
+        image = cv2.imread(image_path)
+>>>>>>> NATv1
 
         return image, info, image_id * 5
 

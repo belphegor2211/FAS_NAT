@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Rethinking Domain Generalization for Face Anti-spoofing: Separability and Alignment
 
 This is the source code for CVPR 2023 paper [Rethinking Domain Generalization for Face Anti-spoofing:
@@ -41,3 +42,6 @@ Separability and Alignment},
 }
 ```
 
+=======
+# FAS_NAT
+>>>>>>> NATv1
